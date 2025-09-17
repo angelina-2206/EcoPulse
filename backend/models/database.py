@@ -1,0 +1,29 @@
+from sqlalchemy import create_engine, MetaData
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Use SQLite for local development without Docker
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./ecopulse.db")
+
+# For PostgreSQL (when using Docker)
+# DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://ecopulse_user:ecopulse_password@localhost:5432/ecopulse_db")
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+metadata = MetaData()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def create_tables():
+    Base.metadata.create_all(bind=engine)

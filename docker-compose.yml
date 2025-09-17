@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: ecopulse_postgres
+    environment:
+      POSTGRES_DB: ecopulse_db
+      POSTGRES_USER: ecopulse_user
+      POSTGRES_PASSWORD: ecopulse_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecopulse_user -d ecopulse_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ecopulse_backend
+    environment:
+      - DATABASE_URL=postgresql://ecopulse_user:ecopulse_password@postgres:5432/ecopulse_db
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=ecopulse_db
+      - POSTGRES_USER=ecopulse_user
+      - POSTGRES_PASSWORD=ecopulse_password
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ecopulse_frontend
+    environment:
+      - API_BASE_URL=http://backend:8000/api
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    command: streamlit run app.py --server.address 0.0.0.0 --server.port 8501
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: ecopulse_network

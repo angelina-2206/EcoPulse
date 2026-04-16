@@ -9,8 +9,8 @@ try:
     from routers import ingest_router, carbon_router, recommend_router, business_router
 except ImportError:
     # Fallback for import issues
-    print("⚠️ Import issues detected - using simplified setup")
-    create_tables = lambda: print("📝 Database setup skipped")
+    print("Import issues detected - using simplified setup")
+    create_tables = lambda: print("Database setup skipped")
     ingest_router = carbon_router = recommend_router = business_router = None
 
 # Load environment variables
@@ -22,15 +22,15 @@ async def lifespan(app: FastAPI):
     try:
         # Try to create tables, but don't fail if it doesn't work
         create_tables()
-        print("✅ Database tables created successfully")
+        print("Database tables created successfully")
     except Exception as e:
-        print(f"⚠️ Database setup note: {e}")
-        print("✅ Continuing with mock services for demo")
+        print(f"Database setup note: {e}")
+        print("Continuing with mock services for demo")
     
     yield
     
     # Shutdown
-    print("🔄 Shutting down EcoPulse API")
+    print("Shutting down EcoPulse API")
 
 app = FastAPI(
     title="EcoPulse API",

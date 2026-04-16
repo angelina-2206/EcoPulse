@@ -53,10 +53,11 @@ docker-compose up --build
 - **ChromaDB RAG**: Policy document retrieval
 - **HuggingFace Integration**: NLP and text processing
 
-### Frontend (Streamlit)
-- **Interactive UI**: Real-time calculations and visualizations
-- **Multi-tab Interface**: Bill processing, carbon analysis, action plans
-- **Data Visualization**: Plotly charts and metrics
+### Frontend (React + Vite)
+- **Interactive UI**: Real-time calculations and visualizations with Glassmorphism design
+- **State Management**: Built-in React state with LocalStorage persistence
+- **Data Visualization**: Premium Recharts-based interactive dashboards
+- **Modern Styling**: Custom Vanilla CSS with Outfit & Inter typography
 
 ### AI/ML Components
 - **Sentence Transformers**: Document embeddings
@@ -125,77 +126,53 @@ docker-compose up --build
 | **Visualization** | Plotly | Charts and data visualization |
 | **Deployment** | Docker + Docker Compose | Containerization |
 
-## 📁 Project Structure
+## 🚀 Quick Start
 
-```
-ecopulse/
-├── backend/                 # FastAPI application
-│   ├── models/             # Database models and schemas
-│   ├── routers/            # API endpoints
-│   ├── services/           # Business logic and AI services
-│   └── main.py            # FastAPI app entry point
-├── frontend/               # Streamlit application
-│   └── app.py             # Main UI application
-├── data/                  # Database initialization and mock data
-├── docker-compose.yml     # Multi-service orchestration
-├── requirements.txt       # Python dependencies
-└── DEPLOYMENT.md         # Detailed deployment guide
-```
-
-## 🏆 Hackathon Submission Highlights
-
-### ⚡ Development Speed
-- **Complete MVP**: Built in under 2 hours
-- **Full-Stack**: Backend + Frontend + Database + AI
-- **Production-Ready**: Docker deployment included
-
-### 🧠 AI Innovation
-- **Multi-Model Integration**: HuggingFace ecosystem
-- **RAG Pipeline**: ChromaDB + policy documents
-- **Personalized Recommendations**: Business-specific advice
-- **NLP Processing**: Automated bill text extraction
-
-### 🎯 Business Impact
-- **Real Problem**: MSME sustainability challenges
-- **Measurable Value**: Quantified savings and emissions
-- **Actionable Insights**: Step-by-step implementation plans
-- **Government Integration**: Subsidy matching system
-
-### 🔧 Technical Excellence
-- **Scalable Architecture**: Modular design patterns
-- **API-First**: RESTful design with auto-documentation
-- **Data-Driven**: Analytics and visualization ready
-- **Cloud-Ready**: Containerized deployment
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Docker & Docker Compose
-- Python 3.11+ (for local development)
-- Git
-
-### Installation
+### 1. Installation
 ```bash
 # Clone repository
 git clone <your-repo-url>
 cd EcoPulse_project
 
-# Start with Docker (Recommended)
-docker-compose up --build
+# Create and activate virtual environment (optional but recommended)
+python -m venv .venv
+source .venv/bin/activate  # Or `.venv\Scripts\activate` on Windows
 
-# OR run locally
+# Install dependencies
+# Install dependencies (Backend)
 pip install -r requirements.txt
-# Start backend: cd backend && uvicorn main:app --reload
-# Start frontend: cd frontend && streamlit run app.py
+
+# Install dependencies (Frontend)
+cd frontend
+npm install
+cd ..
 ```
 
-### Usage
-1. Open http://localhost:8501
-2. Register your business
-3. Upload energy bill or enter data manually
-4. Get carbon footprint analysis
-5. Generate personalized action plan
-6. Explore available subsidies
+### 2. Run the Application
+We've provided a unified run script that starts both the Backend and Frontend with one command:
+```bash
+python run.py
+```
+
+### 3. Access the Platform
+- **Frontend Dashboard**: http://localhost:8501 (Premium UI)
+- **Backend API Docs**: http://localhost:8000/docs
+
+## 🏗️ Technical Architecture & Structure
+
+The project has been streamlined for maximum clarity:
+
+```
+ecopulse/
+├── backend/           # FastAPI: Business logic, AI services, Carbon engine
+├── frontend/          # React + Vite: Premium Dashboard & Interactive UI
+├── docs/              # Detailed guides (Deployment, Troubleshooting, etc.)
+├── scripts/           # Legacy and utility scripts
+├── data/              # Mock data & Database initialization
+├── run.py             # Main entry point (starts both services)
+└── requirements.txt   # Unified project dependencies
+```
+
 
 ## 📈 Future Roadmap
 
@@ -219,4 +196,4 @@ pip install -r requirements.txt
 
 **Demo**: http://localhost:8501 | **API**: http://localhost:8000/docs
 
-**Team**: [Your Team Name] | **Built with**: FastAPI + HuggingFace + Streamlit + ChromaDB
+**Team**: EcoNexus | **Built with**: FastAPI + HuggingFace + Streamlit + ChromaDB

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Activity, Zap, FileText, Bot, ArrowRight, ShieldCheck, Globe, LogIn } from 'lucide-react'
 import useStore from '../store/useStore'
+import LiveDataPulse from '../components/LiveDataPulse'
 
 const LandingPage = () => {
   const login = useStore((state) => state.login)
@@ -39,10 +40,11 @@ const LandingPage = () => {
       exit={{ opacity: 0, y: -20 }}
       className="min-h-screen relative overflow-hidden"
     >
-      {/* Animated Grid Background */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-20">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       </div>
+      
+      <LiveDataPulse count={20} />
       
       {/* Top Navbar */}
       <nav className="absolute top-0 left-0 right-0 p-6 z-20 flex justify-between items-center max-w-7xl mx-auto">

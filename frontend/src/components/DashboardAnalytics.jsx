@@ -2,6 +2,7 @@ import React from 'react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { Activity, Flame, ShieldAlert, Zap, ArrowUpRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import LiveDataPulse from './LiveDataPulse'
 
 const MOCK_DATA = [
   { month: 'Jan', usage: 4000, baseline: 4200 },
@@ -20,6 +21,7 @@ const StatCard = ({ title, value, unit, change, type = 'neutral', icon: Icon }) 
   }
   return (
     <div className="glass-panel p-6 relative overflow-hidden group">
+      <LiveDataPulse count={3} />
       <div className="flex justify-between items-start mb-4">
         <h3 className="text-sm font-bold text-text-muted uppercase tracking-wider">{title}</h3>
         <div className={`p-2 rounded-lg ${colors[type]}`}>

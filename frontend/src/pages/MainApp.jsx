@@ -9,6 +9,7 @@ import WhatIfSimulator from '../components/WhatIfSimulator'
 import AiAssistant from '../components/AiAssistant'
 import SubsidyChecker from '../components/SubsidyChecker'
 import DocumentAutomation from '../components/DocumentAutomation'
+import LiveDataPulse from '../components/LiveDataPulse'
 
 const MainApp = () => {
   const [activeView, setActiveView] = useState('dashboard')
@@ -73,6 +74,7 @@ const MainApp = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,rgba(0,230,118,0.03),transparent_50%)]">
+         <LiveDataPulse count={12} />
          
          {/* Top Header */}
          <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-background-surface/50 backdrop-blur-md z-10">

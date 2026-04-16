@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Activity, Zap, FileText, Bot, ArrowRight, ShieldCheck, Globe, LogIn } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import useStore from '../store/useStore'
 import LiveDataPulse from '../components/LiveDataPulse'
 
 const LandingPage = () => {
+  const navigate = useNavigate()
   const login = useStore((state) => state.login)
   const [isLoggingIn, setIsLoggingIn] = useState(false)
 
@@ -12,11 +14,14 @@ const LandingPage = () => {
     setIsLoggingIn(true)
     setTimeout(() => {
       login({
+        id: 1,
         name: 'Nexus Corp',
         industry: 'manufacturing',
         energyCost: 4500,
-        currency: 'USD'
+        currency: 'USD',
+        monthly_energy_usage: 2800
       })
+      navigate('/dashboard')
     }, 1500)
   }
 

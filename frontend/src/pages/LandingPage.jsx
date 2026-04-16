@@ -48,10 +48,8 @@ const LandingPage = () => {
       
       {/* Top Navbar */}
       <nav className="absolute top-0 left-0 right-0 p-6 z-20 flex justify-between items-center max-w-7xl mx-auto">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-glow-gradient flex items-center justify-center shadow-glow-primary">
-            <Zap className="w-5 h-5 text-background" />
-          </div>
+        <div className="flex items-center gap-3">
+          <img src="/logo.png" alt="EcoPulse Logo" className="w-10 h-10 object-contain" />
           <span className="text-2xl font-display font-bold tracking-tight text-white">EcoPulse</span>
         </div>
         <div className="flex items-center gap-6">
@@ -77,14 +75,14 @@ const LandingPage = () => {
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}
           className="text-5xl sm:text-7xl font-display font-extrabold text-white max-w-4xl leading-[1.1] tracking-tight"
         >
-          Your Business. But <span className="text-transparent bg-clip-text bg-glow-gradient">Greener</span>, <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-accent">Smarter</span>, and Cheaper.
+          Sustainability. <span className="text-transparent bg-clip-text bg-glow-gradient">Decoded by AI.</span> Optimized for Profit.
         </motion.h1>
         
         <motion.p 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-8 text-lg sm:text-xl text-text-muted max-w-2xl font-light"
         >
-          Not just a dashboard. An intelligent control center for MSMEs to track, predict, and optimize sustainability through predictive AI.
+          Empower your MSME with the world's most advanced AI sustainability advisor. Track carbon, predict costs, and unlock hidden subsidies in one unified control center.
         </motion.p>
         
         <motion.div 

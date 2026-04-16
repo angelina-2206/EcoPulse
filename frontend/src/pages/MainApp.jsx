@@ -29,10 +29,8 @@ const MainApp = () => {
       
       {/* Sidebar Layout */}
       <aside className="w-72 bg-background-surface border-r border-white/5 flex flex-col z-20">
-         <div className="h-20 flex items-center px-6 border-b border-white/5">
-            <div className="w-8 h-8 rounded-lg bg-glow-gradient flex items-center justify-center mr-3">
-              <span className="font-bold text-background font-display text-sm">EP</span>
-            </div>
+         <div className="h-20 flex items-center px-6 border-b border-white/5 gap-3">
+            <img src="/logo.png" alt="EcoPulse Logo" className="w-8 h-8 object-contain" />
             <span className="text-xl font-display font-bold">EcoPulse</span>
          </div>
          

@@ -61,16 +61,26 @@
     @apply border-2 border-primary text-primary font-sans font-semibold rounded-lg px-6 py-2.5 transition-all hover:bg-primary hover:text-white active:scale-[0.98];
   }
 
-  /* Input Fields */
   .input-fancy {
     @apply w-full bg-white border border-slate-200 text-text-main placeholder-text-light rounded-lg px-4 py-2.5 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all;
   }
+
+  .btn-accent {
+    @apply bg-accent text-primary font-display font-black rounded-lg px-8 py-4 uppercase tracking-[0.2em] shadow-lg shadow-accent/20 transition-all hover:bg-white hover:text-primary active:scale-[0.98];
+  }
 }
 
-/* Custom Scrollbar - Modern */
+/* Custom Scrollbars */
+.custom-scrollbar-sidebar::-webkit-scrollbar {
+  width: 3px;
+}
+.custom-scrollbar-sidebar::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full;
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   @apply bg-transparent;

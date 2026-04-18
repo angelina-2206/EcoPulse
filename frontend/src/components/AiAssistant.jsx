@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, Bot, User, Sparkles, Zap, MessageSquare, Loader2, ChevronRight } from 'lucide-react'
+import { Send, Bot, User, Sparkles, Zap, MessageSquare, Loader2, ChevronRight, ShieldCheck, PieChart, Activity, Globe } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { aiService } from '../services/api'
 
 const AiAssistant = () => {
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hello! I am EcoPulse AI. I can analyze your energy patterns, find subsidies, or help model cost-saving scenarios. How can I assist your operations today?' }
+    { role: 'assistant', content: "Hello! I'm your EcoPulse Strategy Advisor. I've analyzed your current enterprise profile and identified several high-impact sustainability growth opportunities. How can I assist you in optimizing your ESG strategy today?" }
   ])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
@@ -29,106 +29,116 @@ const AiAssistant = () => {
       const response = await aiService.chat(messageText)
       setMessages(prev => [...prev, { role: 'assistant', content: response.content || response }])
     } catch (err) {
-      setMessages(prev => [...prev, { role: 'assistant', content: "I'm having trouble connecting to the neural network. Please check your connection." }])
+      setMessages(prev => [...prev, { role: 'assistant', content: "I'm experiencing a temporary connection issue with our neural processing hub. Please try again in a moment." }])
     } finally {
       setIsTyping(false)
     }
   }
 
   const suggestions = [
-    "Identify active subsidies",
-    "Model solar ROI",
-    "Analyze monthly bill trends"
+    "Identify available ESG grants",
+    "Model solar roi scenario",
+    "Review industry benchmarks"
   ]
 
   return (
-    <div className="flex flex-col h-[calc(100vh-200px)] glass-panel border border-white/5 relative overflow-hidden bg-background-surface/30">
+    <div className="flex flex-col h-[calc(100vh-280px)] glass-panel border border-slate-200 relative overflow-hidden bg-white shadow-2xl rounded-3xl">
       
-      {/* Header Panel */}
-      <div className="px-8 py-5 border-b border-white/5 flex items-center justify-between bg-background-surface/80 backdrop-blur-xl z-20">
-         <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20 shadow-glow-primary">
-               <Bot className="w-6 h-6 text-primary" />
+      {/* Advisor Header */}
+      <div className="px-12 py-8 border-b border-slate-100 flex items-center justify-between bg-white/95 backdrop-blur-md z-20">
+         <div className="flex items-center gap-6">
+            <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+               <Bot className="w-8 h-8 text-accent" />
             </div>
             <div>
-               <h3 className="text-xl font-bold text-white tracking-tight">EcoPulse Intelligence</h3>
-               <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Neural Network Online</p>
+               <h3 className="text-2xl font-display font-bold text-primary tracking-tight">EcoPulse Strategy Advisor</h3>
+               <div className="flex items-center gap-2 mt-1">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse"></div>
+                  <span className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Artificial Intelligence Active</span>
+               </div>
             </div>
          </div>
-         <div className="hidden sm:flex items-center gap-3">
-            <div className="flex -space-x-2">
-               {[1,2,3].map(i => <div key={i} className="w-6 h-6 rounded-full border border-background bg-slate-800" />)}
+         <div className="hidden lg:flex items-center gap-6">
+            <div className="flex items-center gap-3 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+               <Activity className="w-4 h-4 text-primary opacity-40" />
+               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Neural Link v4.0</span>
             </div>
-            <span className="text-xs text-text-muted font-medium">Synced with EPA Database</span>
+            <div className="w-px h-10 bg-slate-100"></div>
+            <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300">
+               <Globe className="w-6 h-6" />
+            </div>
          </div>
       </div>
 
-      {/* Chat History */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-8 z-10 custom-scrollbar scroll-smooth">
-         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none opacity-50"></div>
-
+      {/* Chat Log */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-12 space-y-12 z-10 bg-slate-50/30 custom-scrollbar">
          <AnimatePresence>
             {messages.map((msg, i) => (
                <motion.div 
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} 
-                  key={i} className={`flex gap-6 max-w-4xl transition-all ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
+                  key={i} className={`flex gap-6 max-w-4xl ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
                >
-                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${msg.role === 'user' ? 'bg-background-layered border border-white/10' : 'bg-primary border border-primary-dark shadow-glow-primary'}`}>
-                     {msg.role === 'user' ? <User className="w-5 h-5 text-text-muted" /> : <Bot className="w-5 h-5 text-background" />}
+                  <div className={`w-12 h-12 rounded-2xl shadow-lg flex items-center justify-center shrink-0 transition-transform hover:scale-110 ${msg.role === 'user' ? 'bg-white text-primary border border-slate-100' : 'bg-primary text-accent'}`}>
+                     {msg.role === 'user' ? <User className="w-6 h-6" /> : <Sparkles className="w-6 h-6" />}
                   </div>
-                  <div className={`p-6 rounded-3xl text-sm leading-relaxed relative ${
+                  <div className={`p-8 rounded-3xl text-sm leading-relaxed shadow-sm relative border ${
                      msg.role === 'user' 
-                     ? 'bg-primary/5 border border-primary/20 text-text-main rounded-tr-sm' 
-                     : 'bg-white/5 border border-white/5 text-text-main rounded-tl-sm'
+                     ? 'bg-white border-slate-100 text-slate-700 rounded-tr-none' 
+                     : 'bg-primary text-white border-primary-dark rounded-tl-none'
                   }`}>
-                     {msg.content}
-                     <div className={`absolute top-4 ${msg.role === 'user' ? '-right-2 border-l-primary/20' : '-left-2 border-r-white/5'} w-0 h-0 border-y-[10px] border-y-transparent border-x-[10px]`}></div>
+                     <div className={`font-black text-[9px] uppercase tracking-[0.3em] mb-4 pb-2 w-fit border-b border-dashed ${msg.role === 'user' ? 'text-slate-300 border-slate-200' : 'text-accent border-accent/20'}`}>
+                        {msg.role === 'user' ? 'Inquiry' : 'AI Insight'}
+                     </div>
+                     <p className="font-medium">{msg.content}</p>
                   </div>
                </motion.div>
             ))}
 
             {isTyping && (
                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-6">
-                  <div className="w-10 h-10 rounded-2xl bg-primary border border-primary-dark shadow-glow-primary flex items-center justify-center">
-                     <Bot className="w-5 h-5 text-background" />
+                  <div className="w-12 h-12 rounded-2xl bg-primary text-accent flex items-center justify-center shadow-lg shadow-primary/10">
+                     <Sparkles className="w-6 h-6" />
                   </div>
-                  <div className="bg-white/5 border border-white/5 p-6 rounded-3xl rounded-tl-sm flex gap-1.5 items-center">
-                     <span className="w-2 h-2 rounded-full bg-primary/50 animate-bounce"></span>
-                     <span className="w-2 h-2 rounded-full bg-primary/50 animate-bounce" style={{ animationDelay: '0.2s' }}></span>
-                     <span className="w-2 h-2 rounded-full bg-primary/50 animate-bounce" style={{ animationDelay: '0.4s' }}></span>
+                  <div className="bg-primary text-white p-8 rounded-3xl rounded-tl-none flex gap-4 items-center">
+                     <div className="flex gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-accent animate-bounce"></div>
+                        <div className="w-2 h-2 rounded-full bg-accent animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-accent animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                     </div>
+                     <span className="text-[10px] font-black uppercase tracking-[0.3em] ml-2 opacity-50">Analyzing...</span>
                   </div>
                </motion.div>
             )}
          </AnimatePresence>
       </div>
 
-      {/* Input Area */}
-      <div className="p-8 border-t border-white/5 bg-background-surface/80 backdrop-blur-2xl z-20 space-y-6">
-         
-         <div className="flex flex-wrap gap-2.5">
+      {/* Input Interface */}
+      <div className="p-10 border-t border-slate-100 bg-white/95 backdrop-blur-md z-20">
+         <div className="flex flex-wrap gap-4 mb-8">
             {suggestions.map((s, i) => (
-               <button key={i} onClick={() => handleSend(s)} className="text-[10px] font-bold px-4 py-2 rounded-xl border border-white/5 bg-white/5 text-text-muted hover:border-primary/40 hover:text-white transition-all flex items-center gap-2 group uppercase tracking-widest">
-                  <ChevronRight className="w-3 h-3 text-primary group-hover:translate-x-0.5 transition-transform" /> {s}
+               <button key={i} onClick={() => handleSend(s)} className="text-[10px] font-black px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 hover:border-accent hover:text-primary transition-all flex items-center gap-3 uppercase tracking-widest group shadow-sm">
+                  <div className="w-1.5 h-1.5 rounded-full bg-accent group-hover:scale-150 transition-transform"></div> {s}
                </button>
             ))}
          </div>
 
-         <div className="relative flex items-center gap-4 bg-background-layered/50 p-2 rounded-2xl border border-white/5 focus-within:border-primary/50 focus-within:ring-4 focus-within:ring-primary/10 transition-all">
+         <div className="relative flex items-center gap-6 bg-white p-2 rounded-2xl border border-slate-200 focus-within:border-accent focus-within:ring-4 focus-within:ring-accent/5 transition-all shadow-sm">
             <textarea 
                value={input} onChange={(e) => setInput(e.target.value)}
                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-               placeholder="How should I optimize my sustainability trajectory?"
-               className="flex-1 max-h-32 min-h-[56px] bg-transparent border-none focus:ring-0 text-text-main placeholder-text-muted/50 resize-none py-4 px-4 text-sm font-medium"
+               placeholder="Ask anything about your sustainability strategy..."
+               className="flex-1 max-h-32 min-h-[64px] bg-transparent border-none focus:ring-0 text-primary placeholder-slate-300 resize-none py-5 px-6 text-sm font-semibold"
                rows={1}
             />
             <button 
                onClick={() => handleSend()}
                disabled={!input.trim() || isTyping}
-               className="w-14 h-14 rounded-xl bg-glow-gradient flex items-center justify-center text-background hover:scale-105 active:scale-95 transition-all shadow-glow-primary disabled:opacity-50 disabled:grayscale disabled:hover:scale-100 shrink-0"
+               className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white hover:bg-primary-light active:scale-[0.9] transition-all shadow-xl shadow-primary/20 disabled:opacity-30 shrink-0"
             >
-               {isTyping ? <Loader2 className="w-6 h-6 animate-spin" /> : <Send className="w-6 h-6" />}
+               {isTyping ? <Loader2 className="w-7 h-7 animate-spin" /> : <Send className="w-7 h-7 text-accent" />}
             </button>
          </div>
+         <p className="mt-6 text-[10px] text-slate-400 font-bold uppercase text-center tracking-[0.3em]">AI-Powered Strategic Decision Support</p>
       </div>
     </div>
   )
